@@ -6,13 +6,24 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import HelloWorld from '@/components/HelloWorld';
 
 export default {
   name: 'home',
   components: {
     HelloWorld,
+  },
+  computed: {
+    ...mapGetters({
+      user: 'user/getUser',
+    }),
+  },
+  mounted() {
+    if (!this.user) {
+      this.$router.push({ name: 'login' });
+    }
   },
 };
 </script>
